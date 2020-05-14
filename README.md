@@ -79,9 +79,7 @@ The root of the path will vary with your own installations. The key is that the 
 
 ## Build file
 
-Now change to the top directory of `prac10`, which at this point should contain `src` and `utest` directories. Using an editor of your choice (preferably one that performs XML syntax highlighting- IntelliJ will do), create a file called
-`build.xml` with the elements and attributes described below. You should run ant (either from IntelliJ or from the command line) after you've completed each significant
-edit, as this will confirm that the syntax is OK. You will find it easier to close each tag as it is opened, thus maintaining syntactically correct XML.
+Now change to the top directory of `prac10`, which at this point should contain `src` and `utest` directories. Create a file called `build.xml` with the elements and attributes described below. You should run ant from the command line after you've completed each significant edit, as this will confirm that the syntax is OK. You will find it easier to close each tag as it is opened, thus maintaining syntactically correct XML.
 
 Adjust any paths as needed in the instructions below. You may also find it helpful to have the lecture slides up for this as you will be writing an Ant build script from scratch here.
 
@@ -100,7 +98,7 @@ You should see an error message similar to:
 
 Keep running ant after each step. You should see the same error message up until step 8. If you see something different then there is likely a syntax error with your XML that you will need to fix.
 
-As an extra step, so that we will be get correct syntax highlighting from within IntelliJ, and so we can run the build file from within IntelliJ at all, we want to tell IntelliJ to use our Ant, rather than the bundled one. Right-click `build.xml` from within IntelliJ and choose the option 'Add as Ant Build File'. This will cause the 'Ant Build' frame to appear on the side (if it doesn't expand automatically, you may have to click 'Ant Build' to get it to expand. It should show a single Ant project named `prac10`. Right-click on this project and click 'Properties'. This will open up a new window. Within this window, click the 'Execution' tab, then tell it to 'Use custom Ant'. In the next window, click to add a new Ant install, then navigate to the directory where you installed Ant and add it. Select this Ant install (it should be version 1.10.5 or later), then click OK to go back to IntelliJ. You should now be able to run each step either from the command-line or from within IntelliJ.
+As an extra step, so that we will be get correct syntax highlighting from within IntelliJ, and so we can run the build file from within IntelliJ at all, we want to tell IntelliJ to use our Ant, rather than the bundled one. Right-click `build.xml` from within IntelliJ and choose the option 'Add as Ant Build File'. This will cause the 'Ant Build' frame to appear on the side (if it doesn't expand automatically, you may have to click 'Ant Build' to get it to expand. It should show a single Ant project named `prac10`. Right-click on this project and click 'Properties'. This will open up a new window. Within this window, click the 'Execution' tab, then tell it to 'Use custom Ant'. In the next window, click to add a new Ant install, then navigate to the directory where you installed Ant and add it. Select this Ant install, then click OK to go back to IntelliJ. You should now be able to run each step either from the command-line or from within IntelliJ.
 
 2) Create a property called `base` with a `value` of `artifacts`, meaning that it will sit below the basedir
 specified above. This is a working target directory. At this point you should also create a property for a working directory for test
