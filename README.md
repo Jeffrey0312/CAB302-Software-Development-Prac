@@ -9,7 +9,7 @@ The classes for this week are about integrated builds in the modern development 
 
 Ant is a command line program written in Java that can be downloaded and installed on any platform. IntelliJ itself with a bundled version of Ant (unless you explicitly disabled this during installation), but for this exercise we will download a recent version of Ant and either use it from the command line or tell IntelliJ to use it instead. It might be preferable to follow the instructions just so you can edit Ant build files from IntelliJ with functioning autocomplete.
 
-First install Ant by following the instructions from the   [Ant manual](http://ant.apache.org/manual/index.html). 
+First install Ant by following the instructions from the [Ant manual](http://ant.apache.org/manual/index.html). 
 
 Once you have installed Ant, type `ant` at the command prompt. You should see a failure message as follows indicating that the `ant` executable ran
 but lacks a build file:
