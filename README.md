@@ -42,12 +42,12 @@ We are going to use a slightly different directory structure for this project; s
 test code from the code for the model classes, a standard approach employed by Java developers. We will, however, need to be very careful as there are significant advantages to maintaining the same package structure for the test classes as for the model.
 
 The source code for this practical is contained within subdirectories of the `src` folder of the
-[repository](https://bitbucket.org/cab302/prac10-int-build), as you have come to expect. We now
+repository, as you have come to expect. We now
 assume that we need to build the project repeatedly, and in a professional environment. We first work to produce a
 directory structure that matches the package structure, and thence to achieve a build file that handles both the
 compilation of the model and test files, along with the execution of the unit tests themselves. Maven and Gradle are designed around a common project directory structure (known as the Standard Directory Layout) and expect application and test source files to be in specific locations. Ant is more flexible, but it still helps to separate test and application code.
 
-Upon cloning the repository, the top-level project directory will be called `prac10-int-build`. These instructions will assume the name of this directory has not been changed.
+Upon cloning the repository, the top-level project directory will be called `prac10`. These instructions will assume the name of this directory has not been changed.
 
 Now examine the provided source code. In the `src/answer` directory you will see that the first line of each of the
 source files specifies package membership as shown:
@@ -98,11 +98,11 @@ Run ant on the command line by navigating to the top-level project directory and
 You should see an error message similar to: 
 
 `BUILD FAILED`
-`Target "build" does not exist in the project "prac10".`
+`Target "build" does not exist in the project "prac10z".`
 
 Keep running ant after each step. You should see the same error message up until step 8. If you see something different then there is likely a syntax error with your XML that you will need to fix.
 
-As an extra step, so that we will be get correct syntax highlighting from within IntelliJ, and so we can run the build file from within IntelliJ at all, we want to tell IntelliJ to use our Ant, rather than the bundled one. Right-click `build.xml` from within IntelliJ and choose the option 'Add as Ant Build File'. This will cause the 'Ant Build' frame to appear on the side (if it doesn't expand automatically, you may have to click 'Ant Build' to get it to expand. It should show a single Ant project named `prac10-int-build`. Right-click on this project and click 'Properties'. This will open up a new window. Within this window, click the 'Execution' tab, then tell it to 'Use custom Ant'. In the next window, click to add a new Ant install, then navigate to the directory where you installed Ant and add it. Select this Ant install (it should be version 1.10.5 or later), then click OK to go back to IntelliJ. You should now be able to run each step either from the command-line or from within IntelliJ.
+As an extra step, so that we will be get correct syntax highlighting from within IntelliJ, and so we can run the build file from within IntelliJ at all, we want to tell IntelliJ to use our Ant, rather than the bundled one. Right-click `build.xml` from within IntelliJ and choose the option 'Add as Ant Build File'. This will cause the 'Ant Build' frame to appear on the side (if it doesn't expand automatically, you may have to click 'Ant Build' to get it to expand. It should show a single Ant project named `prac10`. Right-click on this project and click 'Properties'. This will open up a new window. Within this window, click the 'Execution' tab, then tell it to 'Use custom Ant'. In the next window, click to add a new Ant install, then navigate to the directory where you installed Ant and add it. Select this Ant install (it should be version 1.10.5 or later), then click OK to go back to IntelliJ. You should now be able to run each step either from the command-line or from within IntelliJ.
 
 2) Create a property called `base` with a `value` of `artifacts`, meaning that it will sit below the basedir
 specified above. This is a working target directory. At this point you should also create a property for a working directory for test
