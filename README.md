@@ -5,7 +5,6 @@ CAB302 Software Development
 
 The classes for this week are about integrated builds in the modern development environment. We begin slowly, but build up to generating a professional build file for some existing code. We will work with the source code from a past semester's assignment that implements a simple simulation of a warehouse. We also have some associated unit tests and we will be exploring that relationship a little.
 
-
 ## Ant
 
 Ant is a command line program written in Java that can be downloaded and installed on any platform. IntelliJ itself with a bundled version of Ant (unless you explicitly disabled this during installation), but for this exercise we will download a recent version of Ant and either use it from the command line or tell IntelliJ to use it instead. It might be preferable to follow the instructions just so you can edit Ant build files from IntelliJ with functioning autocomplete.
@@ -179,8 +178,6 @@ Note that ant will be pretty silent if some tasks have already been executed, an
 compilation of a directory of source files that simply doesn't exist. So, your results may vary somewhat, but take a
 good look at the resulting structures and see what you get.
 
-![](imgs/compileTests.png)
-
 (don't worry about any compiler warnings- some of the code is quite old and results in warnings in modern versions of Java)
 
 9) The `junitlauncher` test runner task is tricky, so I will provide it in full here and explain it:
@@ -240,6 +237,63 @@ placed in the file. The `jar` task may be specified as follows:
 ```
 15) Run it (either by typing `ant` or `ant build`) before fixing the error in the `LedgerTest` class, and we see that the test causes the whole build to fail,
 and the jar is not produced. Fix the error, and the build completes successfully.
+
+Your `ant build` should look like this:
+
+```
+Buildfile: /home/ben/IdeaProjects/prac10/build.xml
+
+prepare:
+    [mkdir] Created dir: /home/ben/IdeaProjects/prac10/deployment
+    [mkdir] Created dir: /home/ben/IdeaProjects/prac10/testFiles
+    [mkdir] Created dir: /home/ben/IdeaProjects/prac10/artifacts
+    [mkdir] Created dir: /home/ben/IdeaProjects/prac10/utest/classes
+    [mkdir] Created dir: /home/ben/IdeaProjects/prac10/utest/report
+
+compile:
+    [javac] Compiling 8 source files to /home/ben/IdeaProjects/prac10/artifacts
+
+compileTests:
+    [javac] Compiling 2 source files to /home/ben/IdeaProjects/prac10/utest/classes
+
+utest:
+[junitlauncher] 
+[junitlauncher] Test run finished after 65 ms
+[junitlauncher] [         2 containers found      ]
+[junitlauncher] [         0 containers skipped    ]
+[junitlauncher] [         2 containers started    ]
+[junitlauncher] [         0 containers aborted    ]
+[junitlauncher] [         2 containers successful ]
+[junitlauncher] [         0 containers failed     ]
+[junitlauncher] [        41 tests found           ]
+[junitlauncher] [         0 tests skipped         ]
+[junitlauncher] [        41 tests started         ]
+[junitlauncher] [         0 tests aborted         ]
+[junitlauncher] [        41 tests successful      ]
+[junitlauncher] [         0 tests failed          ]
+[junitlauncher] 
+[junitlauncher] 
+[junitlauncher] Test run finished after 11 ms
+[junitlauncher] [         2 containers found      ]
+[junitlauncher] [         0 containers skipped    ]
+[junitlauncher] [         2 containers started    ]
+[junitlauncher] [         0 containers aborted    ]
+[junitlauncher] [         2 containers successful ]
+[junitlauncher] [         0 containers failed     ]
+[junitlauncher] [        25 tests found           ]
+[junitlauncher] [         0 tests skipped         ]
+[junitlauncher] [        25 tests started         ]
+[junitlauncher] [         0 tests aborted         ]
+[junitlauncher] [        25 tests successful      ]
+[junitlauncher] [         0 tests failed          ]
+[junitlauncher] 
+
+build:
+      [jar] Building jar: /home/ben/IdeaProjects/prac10/WarehouseSimulation.jar
+
+BUILD SUCCESSFUL
+Total time: 1 second
+```
 
 16) Next you should produce some Javadoc. We do this by specifying which packages we would like to create Javadoc for, and then list some options. Javadoc may be produced as follows:
 ```
