@@ -97,7 +97,7 @@ Run ant on the command line by navigating to the top-level project directory and
 You should see an error message similar to: 
 
 `BUILD FAILED`
-`Target "build" does not exist in the project "prac10z".`
+`Target "build" does not exist in the project "prac10".`
 
 Keep running ant after each step. You should see the same error message up until step 8. If you see something different then there is likely a syntax error with your XML that you will need to fix.
 
