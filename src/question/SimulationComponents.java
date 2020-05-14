@@ -1,4 +1,4 @@
-package asgn1Question;
+package question;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,8 +17,8 @@ import javax.swing.JProgressBar;
 import java.util.Random;
 
 // Import the student's solution to the assignment
-import asgn1Solution.WarehouseLedger;
-import asgn1Solution.WarehouseTransactions;
+import answer.WarehouseLedger;
+import answer.WarehouseTransactions;
 
 
 /**

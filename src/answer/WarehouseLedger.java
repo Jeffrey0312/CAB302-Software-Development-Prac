@@ -1,9 +1,9 @@
-package asgn1Solution;
+package answer;
 
 import java.util.ArrayList;
 
-import asgn1Question.Ledger;
-import asgn1Question.WarehouseException;
+import question.Ledger;
+import question.WarehouseException;
 
 /**
  * A solution to the "warehouse ledger" part of INB370 Assignment 1.

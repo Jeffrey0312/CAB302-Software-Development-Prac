@@ -11,10 +11,9 @@ The classes for this week are about integrated builds in the modern development 
 Ant is a command line program written in Java that can be downloaded and installed on any platform. IntelliJ itself with a bundled version of Ant (unless you explicitly disabled this during installation), but for this exercise we will download a recent version of Ant and either use it from the command line or tell IntelliJ to use it instead. It might be preferable to follow the instructions just so you can edit Ant build files from IntelliJ with functioning autocomplete.
 
 First install Ant by following the instructions from the   [Ant
-manual](http://ant.apache.org/manual/index.html). You will need to create a batch file that sets up the JAVA_HOME,
-ANT_HOME and PATH environment variables. The file `antSetup.bat` provided in the repo is an example Windows batch script that does this, assuming an installation of the JDK and Ant to `D:\cab302\` as per the instructions in the Windows Software Installation Guide. If you're on a different platform or installed this software somewhere else you will need to modify this, or create an appropriate script file (e.g. a `sh` file) for your platform. Once
-you have installed Ant and configured your batch script, open a command window, run your `antSetup.bat` file, and then
-type `ant` at the command prompt. You should see a failure message as follows indicating that the `ant` executable ran
+manual](http://ant.apache.org/manual/index.html). 
+
+Once you have installed Ant, type `ant` at the command prompt. You should see a failure message as follows indicating that the `ant` executable ran
 but lacks a build file:
 
     Buildfile: build.xml does not exist! Build failed
@@ -31,7 +30,11 @@ Next, because we want to use JUnit 5 with Ant, we need to go and add some additi
 * junit-platform-launcher-1.4.0.jar
 * opentest4j-1.1.1.jar
 
-While you are in Ant's `lib` directory, verify that `ant-junitlauncher.jar` is also present- otherwise you will have to download it and put it in there. We add the files to Ant's `lib` directory just to ensure that they all end up in the classpath when we run Ant, whether we run it from the command-line or from within IntelliJ.
+While you are in Ant's `lib` directory, verify that `ant-junitlauncher.jar` is also present- otherwise you will have to
+[download the latest version](https://mvnrepository.com/artifact/org.apache.ant/ant-junitlauncher) and put it in there. 
+
+We add the files to Ant's `lib` directory just to ensure that they all end up in the classpath when we run Ant, 
+whether we run it from the command-line or from within IntelliJ.
 
 ## Project structure
 
@@ -46,29 +49,29 @@ compilation of the model and test files, along with the execution of the unit te
 
 Upon cloning the repository, the top-level project directory will be called `prac10-int-build`. These instructions will assume the name of this directory has not been changed.
 
-Now examine the provided source code. In the `src/asgn1Solution` directory you will see that the first line of each of the
+Now examine the provided source code. In the `src/answer` directory you will see that the first line of each of the
 source files specifies package membership as shown:
 
-    package asgn1Solution;
+    package answer;
 
-The first thing we want to do is move the test files into their own directory, which we will create now. Create a directory called `utest` in te top-level project directory (in other words, alongside `src`). The separation used here is that the .java files for unit tests will go in the `utest` directory and the .java files for the application will go in the `src` directory. Next, within the `utest` directory, create another directory called `asgn1Solution`, corresponding to the package that the two unit test files are found in. Then move the `LedgerTest.java` and `TransactionsTest.java` files from the `src/asgn1Solution` directory to the `utest/asgn1Solution` directory.
-Repeat these tasks for the `asgn1Question` directory, again placing the files in the appropriate locations. You should
+The first thing we want to do is move the test files into their own directory, which we will create now. Create a directory called `utest` in te top-level project directory (in other words, alongside `src`). The separation used here is that the .java files for unit tests will go in the `utest` directory and the .java files for the application will go in the `src` directory. Next, within the `utest` directory, create another directory called `answer`, corresponding to the package that the two unit test files are found in. Then move the `LedgerTest.java` and `TransactionsTest.java` files from the `src/answer` directory to the `utest/answer` directory.
+Repeat these tasks for the `question` directory, again placing the files in the appropriate locations. You should
 see this time that there are no unit tests to be considered and so no directory of this name is needed in the `utest`
 hierarchy.
 
 By now we should have:
 
-* \...\prac10-int-build\src\asgn1Question
+* \...\prac10\src\question
    * Ledger.java
    * Simulation.java
    * SimulationComponents.java
    * SimulationFrame.java
    * Transactions.java
    * WarehouseException.java
-* \...\prac10-int-build\src\asgn1Solution
+* \...\prac10\src\answer
    * WarehouseLedger.java
    * WarehouseTransactions.java
-* \...\prac10-int-build\utest\asgn1Solution
+* \...\prac10\utest\answer
    * LedgerTest.java
    * TransactionsTest.java
 
@@ -78,7 +81,7 @@ The root of the path will vary with your own installations. The key is that the 
 
 ## Build file
 
-Now change to the top directory of `prac10-int-build`, which at this point should contain `src` and `utest` directories. Using an editor of your choice (preferably one that performs XML syntax highlighting- IntelliJ will do), create a file called
+Now change to the top directory of `prac10`, which at this point should contain `src` and `utest` directories. Using an editor of your choice (preferably one that performs XML syntax highlighting- IntelliJ will do), create a file called
 `build.xml` with the elements and attributes described below. You should run ant (either from IntelliJ or from the command line) after you've completed each significant
 edit, as this will confirm that the syntax is OK. You will find it easier to close each tag as it is opened, thus maintaining syntactically correct XML.
 
@@ -86,7 +89,7 @@ Adjust any paths as needed in the instructions below. You may also find it helpf
 
 The required steps are as follows:
 
-1) In the `build.xml` file, create an ant `<project>` called `prac10-int-build`, with a default target of `build`, and a basedir of `.`
+1) In the `build.xml` file, create an ant `<project>` called `prac10`, with a default target of `build`, and a basedir of `.`
 
 Run ant on the command line by navigating to the top-level project directory and typing
 
@@ -95,7 +98,7 @@ Run ant on the command line by navigating to the top-level project directory and
 You should see an error message similar to: 
 
 `BUILD FAILED`
-`Target "build" does not exist in the project "prac10-int-build".`
+`Target "build" does not exist in the project "prac10".`
 
 Keep running ant after each step. You should see the same error message up until step 8. If you see something different then there is likely a syntax error with your XML that you will need to fix.
 
@@ -137,8 +140,8 @@ a balance between automation and actually understanding what is going on. The sy
     description="Compile source" >
   <javac srcdir="src" classpath="${base}" destdir="${base}"
       includeantruntime="false">
-    <include name="asgn1Question/*.java" />
-    <include name="asgn1Solution/*.java" />
+    <include name="question/*.java" />
+    <include name="answer/*.java" />
   </javac>
 </target>
 ```
@@ -165,7 +168,7 @@ something like this:
         <!-- Compile unit test source -->
         <javac srcdir="utest" classpath="${base}:${junitJar}:${junitPlatformJar}:${opentestJar}:${apiguardianJar}"
                destdir="utest/classes" includeantruntime="false">
-            <include name="asgn1Solution/*.java" />
+            <include name="answer/*.java" />
         </javac>
     </target>
 ```
@@ -241,7 +244,7 @@ and the jar is not produced. Fix the error, and the build completes successfully
 16) Next you should produce some Javadoc. We do this by specifying which packages we would like to create Javadoc for, and then list some options. Javadoc may be produced as follows:
 ```
     <target name="doc" >
-        <javadoc packagenames="asgn1Solution, asgn1Question"
+        <javadoc packagenames="answer, question"
   		 sourcepath="src"
   		 destdir="doc"
   		 author="true"
@@ -264,10 +267,10 @@ command lines. If you are struggling to specify an appropriate run command in ja
 java –classpath <jarname> <package.className>
 ```
 
-and place this inside (say) `WarehouseSimulation.bat` in the prac10-int-build directory. Then write the `deploy` target, which
+and place this inside (say) `WarehouseSimulation.bat` in the prac10 directory. Then write the `deploy` target, which
 simply copies this batch file and `WarehouseSimulation.jar` to the deployment directory you specified earlier. You now have a very
 good, well structured build file. What is the chain of dependencies for build and deploy?
 
-18) Often is a good idea to produce a target that ‘cleans’ the directories of everything that you have built. This allows you to start fresh if you want to rebuild everything from scratch. Create a target called `clean`  that will delete all the files and directories that you have created. Run it, then try to rebuild everything. 
+18) Often it is a good idea to produce a target that ‘cleans’ the directories of everything that you have built. This allows you to start fresh if you want to rebuild everything from scratch. Create a target called `clean`  that will delete all the files and directories that you have created. Run it, then try to rebuild everything. 
 
 19) Finally, we want to produce a zip file of the source which can be bundled with the javadoc. What are the dependencies required for the source target?

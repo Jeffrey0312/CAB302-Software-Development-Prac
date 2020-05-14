@@ -2,10 +2,14 @@
     <property name="base" value="artifacts" />
     <property name="testBase" value="testFiles" />
     <property name="deploy" value="deployment" />
+
 	<property name="junitJar" value="lib/junit-jupiter-api-5.4.0.jar" />
 	<property name="junitPlatformJar" value="lib/junit-platform-commons-1.4.0.jar" />
 	<property name="opentestJar" value="lib/opentest4j-1.1.1.jar" />
 	<property name="apiguardianJar" value="lib/apiguardian-api-1.0.0.jar" />
+
+	<property name="junitpath" value="${junitJar}:${junitPlatformJar}:${opentestJar}:${apiguardianJar}" />
+
     <target name="prepare" description="Create target directories">
         <mkdir dir="${deploy}" />
         <mkdir dir="${testBase}" />
@@ -14,19 +18,17 @@
    	    <mkdir dir="utest/classes" />
    	    <mkdir dir="utest/report" />
 	</target>
-	
-	
+
     <target name="compile" depends="prepare" description="Compile source" >
-        <javac srcdir="src" classpath="${base}" destdir="${base}" includeantruntime="false">
-            <include name="asgn1Question/*.java" />
-            <include name="asgn1Solution/*.java" />
+        <javac srcdir="src" classpath="${base}:${junitpath}" destdir="${base}" includeantruntime="false">
+            <include name="question/*.java" />
+            <include name="answer/*.java" />
         </javac>
     </target>
 
-
 	 <target name="compileTests" depends="compile" description="Compile tests" >
 		<javac srcdir="utest" classpath="${base}:${junitJar}:${junitPlatformJar}:${opentestJar}:${apiguardianJar}" destdir="utest/classes" includeantruntime="false">
-			<include name="asgn1Solution/*.java" />
+			<include name="answer/*.java" />
         </javac>
     </target>
 
@@ -34,7 +36,7 @@
 		<junitlauncher printSummary="true" failureProperty="junit.failure">
 			<classpath>
 				<pathelement path="utest/classes:${base}" />
-				<pathelement path="${junitJar}:${junitPlatformJar}:${opentestJar}:${apiguardianJar}" />
+				<pathelement path="${junitpath}" />
 			</classpath>
 			<testclasses outputDir="${testBase}">
 				<fileset dir="utest/classes"/>
@@ -69,7 +71,7 @@
 
 	
 	<target name="doc">
-		<javadoc packagenames="asgn1Solution, asgn1Question"
+		<javadoc packagenames="answer, question"
 			sourcepath="src"
 			destdir="doc"
 			author="true"
@@ -91,14 +93,12 @@
 		<delete dir="utest/report"/>
 		<delete dir="${deploy}"/>
 	</target>
-  
-
 
   <target name="src" depends="doc">
     <zip destfile="warehouseSrc.zip"
        basedir="src"
        update="true"
-    />
+	/>
   </target>	
 	
 </project> 

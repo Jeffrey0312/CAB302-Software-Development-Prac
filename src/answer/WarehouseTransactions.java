@@ -1,8 +1,7 @@
-package asgn1Solution;
+package answer;
 
-import asgn1Question.Transactions;
-import asgn1Question.WarehouseException;
-import asgn1Solution.WarehouseLedger; // Unnecessary, but used in broken programs
+import question.Transactions;
+import question.WarehouseException;
 
 /**
  * A solution to the "warehouse transactions" part of INB370 Assignment 1.

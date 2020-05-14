@@ -1,4 +1,4 @@
-package asgn1Question;
+package question;
 
 /**
  * This interface defines the daily transactions associated with managing 
