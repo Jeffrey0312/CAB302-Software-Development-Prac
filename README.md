@@ -207,9 +207,9 @@ failure counts and error counts.
 you will find a couple of xml files containing the results from the `junit` run. Browse them and get a sense of their
 structure.  Now add in the final line of the `utest` target, which
 invokes the error facilities of JUnit and thus of ant:
-
+```
     <fail if="junit.failure" message="junit tests failed - aborting"/>
-
+```
 13) Open up the test class `LedgerTest.java`, and change one of the parameters in a specified test, causing it to fail.
 What is the behaviour of ant in these circumstances?
 
