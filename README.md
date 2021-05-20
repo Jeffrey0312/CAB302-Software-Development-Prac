@@ -230,10 +230,40 @@ For the final step, we want to set up a continuous integration (CI) pipeline to 
 
 ## GitHub Actions
 
+Note that JUnitLauncher (the Ant task used to run JUnit 5 unit tests) is not a default part of Ant, although it is included in the version of Ant packaged with IntelliJ. In this practical we have provided a .jar of JUnitLauncher in the `lib` directory, which we will modify the .yaml file to point Ant to. However, for your own projects you will need to download this separately. You can download it from Maven in the usual way (from Project Structure -> Libraries): enter `org.apache.ant:ant-junitlauncher:1.10.9` (or a later ver) in the text field, disable transitive dependencies and select the option that stores the .jar in the `lib` directory. Note that this is not necessary for this prac, but may be necessary for your own projects.
+
 1) The first thing you will need to do is get your prac 11 code onto GitHub. Go to GitHub, create an account (if you haven't done so already) and create a new repository - ideally named `prac11`. Make it private and do not initialise the repository with any files.
 
 2) Get your newly created repository's SSH URL, go to Git -> Manage Remotes in IntelliJ and replace the `origin` URL with the new SSH URL.
 
 3) Commit your changes to the repository, then push them, handling authentication where necessary (you may need to set up SSH keys to do this). Your prac 11 code should now appear on GitHub in your private repository.
 
-4) 
+4) On your repository page on GitHub, you will see a button titled 'Actions' (in between the 'Pull Requests' and 'Projects' buttons). Click that.
+
+5) For convenience, choose one of the provided workflows. You may need to scroll down and click on 'More continuous integration workflows...' to find it, but you want the one titled 'Java with Ant' as it is very close to what we need.
+
+6) The default .yaml file that this workflow provides uses JDK 11 and runs Ant on your `build.xml` file. This is almost perfect. Change it to use JDK 15 instead (edit the `'java-version'` parameter).
+
+7) We need to give Ant the path to our `lib` directory so it will find the JUnitLauncher task (and anything else it needs). Add `-lib lib ` to the invocation of Ant in the .yaml file.
+
+8) Now commit the .yaml file. It may take a little while, but soon you will be able to click on Actions and see the results of that run. If the run was successful, there should be a green tick next to it. If the run failed, something went wrong somewhere. You will need to modify your .yaml file (or fix any other problems, if the problem was caused by something else in your build) and commit those changes on GitHub. Because the pipeline will trigger every time the source is changed, you do not need to manually rerun the action.
+
+## Jenkins
+
+1) Install Jenkins. Detailed instructions are given in the Jenkins online documentation: [https://www.jenkins.io/doc/book/installing/](https://www.jenkins.io/doc/book/installing/). On Windows I found it easier to actually download the .WAR file and run it from Java on the command-line, rather than bothering with the graphical installer that tries to set up a Windows service.
+
+2) Follow the instructions to get Jenkins running on your platform. When you come to installing plugins, make sure you get the Ant and FSTrigger plugins.
+
+3) Create a new freestyle project (e.g. named `prac11`). The process of configuring it should be fairly straightforward as the client is graphical. Set the FSTrigger to run whenever a .java file in your project changes (`**/*.java`).
+
+4) You may need to install command-line Ant - follow the instructions found in Ant's online documentation to get Ant installed and environment variables configured: [https://ant.apache.org/manual/install.html#installing](https://ant.apache.org/manual/install.html#installing).
+
+5) Copy the .jar files in the `lib` directory of this practical and paste them into Ant's `lib` directory. This is an easy way of getting Ant installed with little effort.
+
+6) Configure your project in Jenkins to launch Ant as one of the build steps. You should not need to configure this.
+
+7) Now you need to find Jenkins' workspace directory for this project. The exact location depends on your setup, but you should be able to find the Jenkins directory under Manage Jenkins -> System Information. Then just look for the `prac11` directory under the `workspace` directory inside it.
+
+8) Now that you have found the workspace directory, copy and paste the entire contents of your IntelliJ project directory into it (so that the `build.xml` file falls into the Jenkins `workspace/prac11` directory.
+
+9) Jenkins should now spot the changed directory structure and launch a build. Return to the dashboard and wait for it to happen. You may need to debug things if nothing happens after a minute.
