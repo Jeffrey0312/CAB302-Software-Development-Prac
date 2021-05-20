@@ -1,7 +1,6 @@
 <project name="exercise" default="build" basedir=".">
 	<property name="base" value="artifacts" />
 	<property name="testBase" value="testFiles" />
-	<property name="deploy" value="deployment" />
 
 	<property name="junitJar" value="lib/junit-jupiter-api-5.4.2.jar" />
 	<property name="junitPlatformJar" value="lib/junit-platform-commons-1.4.2.jar" />
@@ -11,7 +10,6 @@
 	<property name="junitpath" value="${junitJar}:${junitPlatformJar}:${opentestJar}:${apiguardianJar}" />
 
 	<target name="prepare" description="Create target directories">
-		<mkdir dir="${deploy}" />
 		<mkdir dir="${testBase}" />
 		<mkdir dir="${base}" />
 		<mkdir dir="doc" />
@@ -79,7 +77,6 @@
 		<delete dir="doc"/>
 		<delete dir="${testBase}"/>
 		<delete dir="utestclasses"/>
-		<delete dir="${deploy}"/>
 	</target>
 
 	<target name="src" depends="doc">

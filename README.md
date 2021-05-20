@@ -58,7 +58,7 @@ You will likely find it helpful to have the lecture slides up for this as you wi
 The required steps are as follows:
 
 1) Create a target called `prepare`, specifying its description attribute as `"Create target directories"`. Within the
-   target element (i.e. before the closing tag), insert five `mkdir` tasks to create the `deploy`, `base` and `testBase` directories (remember to use `${propname}` when referring to a property named propname), the JavaDoc directory, and a directory for the unit test class files. In the latter case, the syntax is as follows:
+   target element (i.e. before the closing tag), insert five `mkdir` tasks to create the `base` and `testBase` directories (remember to use `${propname}` when referring to a property named propname), the JavaDoc directory, and a directory for the unit test class files. In the latter case, the syntax is as follows:
 
 ```
 <mkdir dir="utestclasses" />
@@ -149,7 +149,6 @@ The output of `build` should look like this:
 Buildfile: /home/ben/IdeaProjects/prac11/build.xml
 
 prepare:
-    [mkdir] Created dir: /home/ben/IdeaProjects/prac11/deployment
     [mkdir] Created dir: /home/ben/IdeaProjects/prac11/testFiles
     [mkdir] Created dir: /home/ben/IdeaProjects/prac11/artifacts
     [mkdir] Created dir: /home/ben/IdeaProjects/prac11/utestclasses
