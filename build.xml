@@ -1,0 +1,92 @@
+<project name="exercise" default="build" basedir=".">
+	<property name="base" value="artifacts" />
+	<property name="testBase" value="testFiles" />
+	<property name="deploy" value="deployment" />
+
+	<property name="junitJar" value="lib/junit-jupiter-api-5.4.2.jar" />
+	<property name="junitPlatformJar" value="lib/junit-platform-commons-1.4.2.jar" />
+	<property name="opentestJar" value="lib/opentest4j-1.1.1.jar" />
+	<property name="apiguardianJar" value="lib/apiguardian-api-1.0.0.jar" />
+
+	<property name="junitpath" value="${junitJar}:${junitPlatformJar}:${opentestJar}:${apiguardianJar}" />
+
+	<target name="prepare" description="Create target directories">
+		<mkdir dir="${deploy}" />
+		<mkdir dir="${testBase}" />
+		<mkdir dir="${base}" />
+		<mkdir dir="doc" />
+		<mkdir dir="utestclasses" />
+	</target>
+
+	<target name="compile" depends="prepare" description="Compile source" >
+		<javac srcdir="src" classpath="${base}:${junitpath}" destdir="${base}" includeantruntime="false">
+			<include name="question/*.java" />
+			<include name="answer/*.java" />
+		</javac>
+	</target>
+
+	<target name="compileTests" depends="compile" description="Compile tests" >
+		<javac srcdir="utest" classpath="${base}:${junitJar}:${junitPlatformJar}:${opentestJar}:${apiguardianJar}" destdir="utestclasses" includeantruntime="false">
+			<include name="answer/*.java" />
+		</javac>
+	</target>
+
+	<target name="utest" depends="compileTests" description="Run JUnit">
+		<junitlauncher printSummary="true" failureProperty="junit.failure">
+			<classpath>
+				<pathelement path="utestclasses:${base}" />
+				<pathelement path="${junitpath}" />
+			</classpath>
+			<testclasses outputDir="${testBase}">
+				<fileset dir="utestclasses"/>
+				<listener type="legacy-xml"/>
+			</testclasses>
+		</junitlauncher>
+		<fail if="junit.failure" message="junit tests failed - aborting"/>
+	</target>
+
+	<target name="build" depends="utest" >
+		<jar destfile="WarehouseSimulation.jar" basedir="${base}">
+			<manifest>
+				<!-- Who is building this jar? -->
+				<attribute name="Built-By" value="${user.name}"/>
+				<!-- Information about the program itself -->
+				<attribute name="Implementation-Vendor" value="QUT"/>
+				<attribute name="Implementation-Title" value="CAB302 Exercise"/>
+				<attribute name="Implementation-Version" value="1.0.0"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="doc">
+		<javadoc packagenames="answer, question"
+				 sourcepath="src"
+				 destdir="doc"
+				 author="true"
+				 version="true"
+				 use="true"
+				 windowtitle="Warehouse Ledger Project API">
+			<doctitle><![CDATA[<h1>Warehouse Ledger Simulation</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169;  QUT. All Rights Reserved.</i>]]></bottom>
+		</javadoc>
+	</target>
+
+
+	<target name="clean">
+		<delete file="./WarehouseSimulation.jar"/>
+		<delete file="./warehouseSrc.zip"/>
+		<delete dir="${base}"/>
+		<delete dir="doc"/>
+		<delete dir="${testBase}"/>
+		<delete dir="utestclasses"/>
+		<delete dir="${deploy}"/>
+	</target>
+
+	<target name="src" depends="doc">
+		<zip destfile="warehouseSrc.zip"
+			 basedir="src"
+			 update="true"
+		/>
+	</target>
+
+</project>

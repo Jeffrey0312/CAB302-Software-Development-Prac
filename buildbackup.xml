@@ -1,0 +1,12 @@
+<project name="exercise" basedir=".">
+    <property name="base" value="artifacts" />
+    <property name="testBase" value="testFiles" />
+    <property name="deploy" value="deployment" />
+
+	<property name="junitJar" value="lib/junit-jupiter-api-5.4.2.jar" />
+	<property name="junitPlatformJar" value="lib/junit-platform-commons-1.4.2.jar" />
+	<property name="opentestJar" value="lib/opentest4j-1.1.1.jar" />
+	<property name="apiguardianJar" value="lib/apiguardian-api-1.0.0.jar" />
+
+	<property name="junitpath" value="${junitJar}:${junitPlatformJar}:${opentestJar}:${apiguardianJar}" />
+</project> 
